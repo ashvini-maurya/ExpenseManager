@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>expense</title>
+    </head>
+
+    <body>
+        <h1>Expense Manager</h1>
+
+        {% if categories %}
+            <ul>
+                {% for transaction in categories %}
+                <li>{{ transaction.category }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </body>
+</html>
