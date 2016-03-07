@@ -10,10 +10,14 @@
         {% if categories %}
             <ul>
                 {% for transaction in categories %}
-                <li>{{ transaction.category }}</li>
+                <li>{{ transaction.amount }}</li>
+                <li>{{ transaction.comment }}</li>
+                <li>{{ transaction.category }}</li><br />
                 {% endfor %}
             </ul>
         {% endif %}
+
+    <a href="/expense/add_transaction">Add a new transaction</a><br />
 
     </body>
 </html>
