@@ -5,6 +5,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=128)
 
+    def __unicode__(self):
+        return self.name
+
 class Transaction(models.Model):
     amount = models.FloatField()
     comment = models.CharField(max_length=128)
@@ -16,5 +19,3 @@ class Transaction(models.Model):
 
 class User(models.Model):
     user_id = models.ForeignKey(Transaction)
-
-

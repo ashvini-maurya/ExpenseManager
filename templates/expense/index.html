@@ -8,15 +8,15 @@
 
         <h1>Expense Manager</h1>
 
-        {% if categories %}
-            <ul>
-                {% for transaction in categories %}
-                <li>{{ transaction.amount }}</li>
-                <li>{{ transaction.comment }}</li>
-                <li>{{ transaction.category }}</li><br />
-                {% endfor %}
-            </ul>
-        {% endif %}
+{#        {% if categories %}#}
+{#            <ul>#}
+{#                {% for transaction in categories %}#}
+{#                <li>{{ transaction.amount }}</li>#}
+{#                <li>{{ transaction.comment }}</li>#}
+{#                <li>{{ transaction.category }}</li><br />#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        {% endif %}#}
 
     {% if user.is_authenticated %}
 
