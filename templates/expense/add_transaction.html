@@ -9,6 +9,7 @@
         <h1>Add expenses</h1>
 
         <form id="transaction_form" method="post" action="/expense/add_transaction">
+        <form
 
         {% csrf_token %}
         {% for field in form.visible_fields %}

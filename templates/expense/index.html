@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>expense</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+{% block body_block %}
+
         <h1>Expense Manager</h1>
 
         {% if categories %}
@@ -17,10 +18,17 @@
             </ul>
         {% endif %}
 
+    {% if user.is_authenticated %}
+
     <a href="/expense/add_transaction">Add a new transaction</a><br />
+    <a href="{% url 'auth_logout' %}">Logout</a><br />
+
+
+    {% else %}
+
     <a href="{% url 'auth_login' %}">Login</a><br />
     <a href="{% url 'registration_register' %}">Register Here</a>
 
+    {% endif %}
 
-    </body>
-</html>
+{% endblock %}
