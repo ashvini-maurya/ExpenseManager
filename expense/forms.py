@@ -4,7 +4,7 @@ from expense.models import Transaction, Category
 class TransactionForm(forms.ModelForm):
     amount = forms.IntegerField()
     comment = forms.CharField()
-    category = forms.CharField()
+    category = forms.ModelChoiceField(queryset=Category.objects.all())
     user_id = forms.IntegerField()
 
     class Meta:
