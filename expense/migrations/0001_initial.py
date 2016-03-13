@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('amount', models.FloatField()),
                 ('comment', models.CharField(max_length=128)),
                 ('category', models.ForeignKey(to='expense.Category')),
-                ('user_id', models.ForeignKey(to=settings.AUTH_USER_MODEL, unique=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },

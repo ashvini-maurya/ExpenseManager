@@ -6,8 +6,8 @@ from django.http import HttpResponse
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-    user_id = request.user.id
-    print user_id
+    # user_id = request.user.id
+    # print user_id
 
     return render(request, 'expense/index.html', context_dict)
 
@@ -30,20 +30,15 @@ def add_category(request):
 
 
 def add_transaction(request):
+
     if request.method == 'POST':
-
-        print type(request.POST['category'])           # check the type category form
-
         form = TransactionForm(request.POST)
-
-
-        form.fields["category"].queryset = Transaction.objects.filter(category)
-
-
-
+        user = request.user
 
         if form.is_valid():
-            form.save(commit=True)
+            transaction = form.save(commit=False)
+            transaction.user = user
+            transaction.save()
             return index(request)
         else:
             return HttpResponse("Please enter all entries")
