@@ -13,13 +13,16 @@
 {#                {% for transaction in transactions %}#}
 {#                <li>{{ transaction.amount }}</li>#}
 {#                <li>{{ transaction.comment }}</li>#}
-{#                <li>{{ transaction.category }}</li><br />#}
+{#                <li>{{ transaction.category }}</li>#}
+{#                <li>{{ transaction.user }}</li><br />#}
 {#                {% endfor %}#}
 {#            </ul>#}
 {#        {% endif %}#}
 
+
     {% if user.is_authenticated %}
 
+    <a href="/expense/all_transactions">View Previous Transactions</a><br />
     <a href="/expense/add_category">Add a new category</a><br />
     <a href="/expense/add_transaction">Add a new transaction</a><br />
     <a href="{% url 'auth_logout' %}">Logout</a><br />

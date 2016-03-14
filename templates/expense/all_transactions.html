@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+{% block body_block %}
+
+        <h1>Expense Manager</h1>
+
+        {% if transactions %}
+            <ul>
+                {% for transaction in transactions %}
+                <li>{{ transaction.amount }}</li>
+                <li>{{ transaction.comment }}</li>
+                <li>{{ transaction.category }}</li>
+                <li>{{ transaction.user }}</li><br />
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+{% endblock %}
