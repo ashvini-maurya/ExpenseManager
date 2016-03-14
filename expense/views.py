@@ -6,10 +6,14 @@ from django.http import HttpResponse
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-    # user_id = request.user.id
-    # print user_id
-
+    #print context_dict
     return render(request, 'expense/index.html', context_dict)
+
+
+def transactions(request):
+    transactions = Transaction.objects.all()
+    transactions_dict = {'transactions': transactions}
+    return render(request, 'expense/all_transactions.html', transactions_dict)
 
 
 def add_category(request):
@@ -24,8 +28,6 @@ def add_category(request):
         form = CategoryForm()
 
     return render(request, 'expense/add_category.html', {'form': form})
-
-
 
 
 

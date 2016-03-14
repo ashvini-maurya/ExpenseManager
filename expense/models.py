@@ -15,4 +15,4 @@ class Transaction(models.Model):
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return unicode(self.category)
+        return '%s, %s, %s, %s' % (self.amount, self.comment, self.category, self.user)
