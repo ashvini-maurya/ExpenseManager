@@ -25,7 +25,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expense/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5691057">
+            <state vertical-scroll-proportion="0.8076923">
               <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
@@ -70,7 +70,7 @@
             <state vertical-scroll-proportion="-7.5">
               <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
               <folding>
-                <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+                <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -567,7 +567,7 @@
     <frame x="1407" y="24" width="1325" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38235295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.55108356" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -611,7 +611,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
-            <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+            <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -692,7 +692,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
           <folding>
-            <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+            <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -774,7 +774,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
           <folding>
-            <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+            <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -846,7 +846,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
           <folding>
-            <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+            <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -981,7 +981,7 @@
         <state vertical-scroll-proportion="-7.5">
           <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
-            <marker date="1457955882062" expanded="true" signature="151:424" placeholder="..." />
+            <marker date="1457956855659" expanded="true" signature="151:424" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1012,7 +1012,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expense/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5691057">
+        <state vertical-scroll-proportion="0.8076923">
           <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
