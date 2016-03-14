@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from expense.models import Transaction
-from expense.forms import TransactionForm, CategoryForm
+from expense.forms import TransactionForm, CategoryForm, MonthlyBudgetForm
 from django.http import HttpResponse
+from expense.models import Budget
+
 
 def index(request):
     transaction_list = Transaction.objects.all()
@@ -32,7 +34,6 @@ def add_category(request):
 
 
 def add_transaction(request):
-
     if request.method == 'POST':
         form = TransactionForm(request.POST)
         user = request.user
@@ -49,3 +50,18 @@ def add_transaction(request):
         form = TransactionForm()
 
     return render(request, 'expense/add_transaction.html', {'form': form})
+
+
+def add_monthly_budget(request):
+    if request.method == 'POST':
+        form = MonthlyBudgetForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            return HttpResponse("Please enter Monthly Budget!")
+    else:
+        form = MonthlyBudgetForm()
+
+    return render(request, 'expense/add_monthly_budget.html', {'form': form})
+

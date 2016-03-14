@@ -16,3 +16,11 @@ class Transaction(models.Model):
 
     def __unicode__(self):
         return '%s, %s, %s, %s' % (self.amount, self.comment, self.category, self.user)
+
+
+
+class Budget(models.Model):
+    budget_amount = models.FloatField()
+
+    def __unicode__(self):
+        return unicode(self.budget_amount)

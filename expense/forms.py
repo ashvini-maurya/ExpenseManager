@@ -1,5 +1,5 @@
 from django import forms
-from expense.models import Transaction, Category
+from expense.models import Transaction, Category, Budget
 
 class TransactionForm(forms.ModelForm):
     amount = forms.IntegerField()
@@ -17,4 +17,9 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ('name', )
 
+class MonthlyBudgetForm(forms.ModelForm):
+    budget = forms.FloatField()
 
+    class Meta:
+        model = Budget
+        fields = ('budget', )
