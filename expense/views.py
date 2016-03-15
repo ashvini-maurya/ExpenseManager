@@ -8,7 +8,8 @@ from expense.models import Budget
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-    #print context_dict
+    print context_dict
+
     return render(request, 'expense/index.html', context_dict)
 
 
