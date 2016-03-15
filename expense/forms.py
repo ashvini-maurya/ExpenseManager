@@ -18,8 +18,9 @@ class CategoryForm(forms.ModelForm):
         fields = ('name', )
 
 class MonthlyBudgetForm(forms.ModelForm):
-    budget = forms.FloatField()
+    budget_amount = forms.FloatField()
 
     class Meta:
         model = Budget
-        fields = ('budget', )
+        exclude = ('user',)
+        #fields = ('budget', )

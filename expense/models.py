@@ -21,6 +21,7 @@ class Transaction(models.Model):
 
 class Budget(models.Model):
     budget_amount = models.FloatField()
+    user = models.OneToOneField(User)
 
     def __unicode__(self):
         return unicode(self.budget_amount)

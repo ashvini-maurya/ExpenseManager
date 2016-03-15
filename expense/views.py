@@ -8,7 +8,16 @@ from expense.models import Budget
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-    #print context_dict
+    #
+    #category = []
+    # for cat in context_dict.items():
+    #     print cat
+
+    # print category
+
+    # category = transaction_list.objects.all(category__name__in=context_dict).values('shared')
+
+    # print (category)
     return render(request, 'expense/index.html', context_dict)
 
 
@@ -55,8 +64,12 @@ def add_transaction(request):
 def add_monthly_budget(request):
     if request.method == 'POST':
         form = MonthlyBudgetForm(request.POST)
+        user = request.user
+
         if form.is_valid():
-            form.save(commit=True)
+            budget = form.save(commit=False)
+            budget.user = user
+            budget.save()
             return index(request)
         else:
             return HttpResponse("Please enter Monthly Budget!")
