@@ -8,6 +8,7 @@ from expense.models import Budget
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
+<<<<<<< HEAD
     #
     #category = []
     # for cat in context_dict.items():
@@ -18,6 +19,10 @@ def index(request):
     # category = transaction_list.objects.all(category__name__in=context_dict).values('shared')
 
     # print (category)
+=======
+    print context_dict
+
+>>>>>>> transactions_by_category
     return render(request, 'expense/index.html', context_dict)
 
 
