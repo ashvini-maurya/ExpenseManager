@@ -23,4 +23,3 @@ class MonthlyBudgetForm(forms.ModelForm):
     class Meta:
         model = Budget
         exclude = ('user',)
-        #fields = ('budget', )
