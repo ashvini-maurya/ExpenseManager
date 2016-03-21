@@ -20,7 +20,7 @@ class Transaction(models.Model):
 
 
 class Budget(models.Model):
-    budget_amount = models.FloatField()
+    budget_amount = models.DecimalField(max_digits=11, decimal_places=2)
     user = models.OneToOneField(User)
 
     def __unicode__(self):

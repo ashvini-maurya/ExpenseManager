@@ -16,7 +16,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='budget',
             name='user',
-            field=models.OneToOneField(default=5, to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(default=4, to=settings.AUTH_USER_MODEL),
             preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='budget',
+            name='budget_amount',
+            field=models.DecimalField(max_digits=11, decimal_places=2),
         ),
     ]

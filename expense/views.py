@@ -3,11 +3,26 @@ from expense.models import Transaction
 from expense.forms import TransactionForm, CategoryForm, MonthlyBudgetForm
 from django.http import HttpResponse
 from expense.models import Budget
+from django.db.models import Sum
 
 
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
+
+
+
+    #
+    # category_list = []
+    # for cat in transaction_list:
+    #     category_list.append(cat.category)
+    # print set(category_list)
+
+
+    for tran in transaction_list:
+        print "category is %s" % tran.category
+
+
 
     return render(request, 'expense/index.html', context_dict)
 
@@ -15,12 +30,6 @@ def index(request):
 def transactions(request):
     transactions = Transaction.objects.all()
     transactions_dict = {'transactions': transactions}
-    #print transactions_dict
-
-    for transaction in transactions_dict:
-        print transaction.find('category')
-
-
 
     return render(request, 'expense/all_transactions.html', transactions_dict)
 
@@ -49,6 +58,7 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             transaction.user = user
             transaction.save()
+            #print transaction.amount
             return index(request)
         else:
             return HttpResponse("Please enter all entries")
@@ -80,6 +90,26 @@ def add_monthly_budget(request):
 def display_monthly_budget(request):
     user = request.user
     budget_amount = Budget.objects.filter(user=user)
-    print budget_amount
+    remainingamonut=remaining_budget_balance(request)
+    #print budget_amount
 
-    return render(request, 'expense/display_monthly_budget.html', {'budget_amount': budget_amount})
+    return render(request, 'expense/display_monthly_budget.html', {'budget_amount': budget_amount,'remainingamonut':remainingamonut})
+
+
+
+def remaining_budget_balance(request):
+    user = request.user
+    try:
+        budget_amount = Budget.objects.get(user=user)
+        #print(budget_amount)
+        expense_budget=Transaction.objects.filter(user=user).aggregate(Sum('amount'))
+
+        #print(expense_budget)
+
+        remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
+
+        #print remaining_amount
+
+        return remaining_amount
+    except Exception as d:
+        print(d)
