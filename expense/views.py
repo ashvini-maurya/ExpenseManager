@@ -1,16 +1,19 @@
 from django.shortcuts import render
-from expense.models import Transaction
+from expense.models import Transaction, Category
 from expense.forms import TransactionForm, CategoryForm, MonthlyBudgetForm
 from django.http import HttpResponse
 from expense.models import Budget
-from django.db.models import Sum
+# from django.db.models import Sum
+#import datetime
+#import time
+from django.shortcuts import get_object_or_404
+from django.http import Http404
+
 
 
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-
-
 
     #
     # category_list = []
@@ -19,24 +22,32 @@ def index(request):
     # print set(category_list)
 
 
-    for tran in transaction_list:
-        print "category is %s" % tran.category
-
-
+    # for tran in transaction_list:
+    #     print "category is %s" % tran.category
 
     return render(request, 'expense/index.html', context_dict)
 
 
 def transactions(request):
-    transactions = Transaction.objects.all()
+    user = request.user
+    transactions = Transaction.objects.filter(user=user)
     transactions_dict = {'transactions': transactions}
 
     return render(request, 'expense/all_transactions.html', transactions_dict)
 
 
 def add_category(request):
+
     if request.method == 'POST':
+        try:
+            cat = Category.objects.filter(name=request.POST['name'])
+            if(cat):
+                return HttpResponse("category already exists")
+
+        except :
+           pass
         form = CategoryForm(request.POST)
+
         if form.is_valid():
             form.save(commit=True)
             return index(request)
@@ -57,8 +68,8 @@ def add_transaction(request):
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.user = user
+
             transaction.save()
-            #print transaction.amount
             return index(request)
         else:
             return HttpResponse("Please enter all entries")
@@ -70,46 +81,136 @@ def add_transaction(request):
 
 
 def add_monthly_budget(request):
+    form = MonthlyBudgetForm()
     if request.method == 'POST':
-        form = MonthlyBudgetForm(request.POST)
-        user = request.user
+        try:
+            getbudget=Budget.objects.get(user=request.user)
+            getbudget.budget_amount=request.POST['budget_amount']
+            getbudget.save()
+            return HttpResponse("Successfully updated budget")
+        except:
+            form = MonthlyBudgetForm(request.POST)
+            user = request.user
 
-        if form.is_valid():
-            budget = form.save(commit=False)
-            budget.user = user
-            budget.save()
-            return index(request)
-        else:
-            return HttpResponse("Please enter Monthly Budget!")
+            if form.is_valid():
+                budget = form.save(commit=False)
+                budget.user = user
+                budget.save()
+                return index(request)
+            else:
+                return HttpResponse("Please enter Monthly Budget!")
     else:
         form = MonthlyBudgetForm()
 
     return render(request, 'expense/add_monthly_budget.html', {'form': form})
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+# def get_obj_or_404(transaction, *args, **kwargs):
+#     try:
+#         return transaction.objects.get(*args, **kwargs)
+#     except transaction.DoesNotExist:
+#         raise Http404
+
+
+
 def display_monthly_budget(request):
     user = request.user
-    budget_amount = Budget.objects.filter(user=user)
-    remainingamonut=remaining_budget_balance(request)
-    #print budget_amount
+    # try:
+    #     budget_amount = Budget.objects.filter(user=user)
+    #     print budget_amount
+    # except Budget.DoesNotExist:
+    #     budget_amount = None
 
-    return render(request, 'expense/display_monthly_budget.html', {'budget_amount': budget_amount,'remainingamonut':remainingamonut})
+    budget_amount = get_object_or_404(Budget, user=user)
+
+    remainingamount = remaining_budget_balance(request)
+    #remainingamount = get_obj_or_404(remaining_budget_balance, user=user)
+    #print remainingamount
+
+    return render(request, 'expense/display_monthly_budget.html', {'budget_amount': budget_amount,'remainingamount':remainingamount})
 
 
 
 def remaining_budget_balance(request):
     user = request.user
-    try:
-        budget_amount = Budget.objects.get(user=user)
-        #print(budget_amount)
-        expense_budget=Transaction.objects.filter(user=user).aggregate(Sum('amount'))
+    #current_date = datetime.datetime.now().date().month, datetime.datetime.now().date().year
+    #print current_date
 
-        #print(expense_budget)
+    #print current_date_month
+    of_user = Transaction.objects.filter(user=user)
 
-        remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
+    budget_amount = Budget.objects.get(user=user)
+    #expense_budget = Transaction.objects.filter(user=user).aggregate(Sum('amount'))
+    #remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
 
-        #print remaining_amount
+    amount_list = []
+    for amount in of_user:
+        amount_list.append(amount.amount)
+    sum_of_all_transactions = sum(amount_list)
 
-        return remaining_amount
-    except Exception as d:
-        print(d)
+    for date_month in of_user:
+        #transaction_date = date_month.created_at.date().month, date_month.created_at.date().year
+        # print transaction_date
+        #if current_date == transaction_date:
+            #print "yyyyyyyyyyyy"
+
+        return (str(sum_of_all_transactions) +  " / " + str(budget_amount))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # try:
+    #     budget_amount = Budget.objects.get(user=user)
+    #     #print(budget_amount)
+    #     #expense_budget=Transaction.objects.filter(user=user).aggregate(Sum('amount'))
+    #
+    #
+    #
+    #     # print transaction
+    #
+    #     #print(expense_budget)
+    #
+    #     expense_budget = Transaction.objects.filter(user=user).aggregate(Sum('amount'))
+    #
+    #     remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
+    #
+    #
+    #
+    #
+    #     # if remaining_amount > budget_amount:
+    #     #     print "Your expenses are more than your budget amount."
+    #
+    #
+    #
+    #     #print remaining_amount
+    #
+    #     return remaining_amount
+    # except Exception as d:
+    #     print(d)
