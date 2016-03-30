@@ -13,17 +13,6 @@ from django.http import Http404
 def index(request):
     transaction_list = Transaction.objects.all()
     context_dict = {'categories': transaction_list}
-
-    #
-    # category_list = []
-    # for cat in transaction_list:
-    #     category_list.append(cat.category)
-    # print set(category_list)
-
-
-    # for tran in transaction_list:
-    #     print "category is %s" % tran.category
-
     return render(request, 'expense/index.html', context_dict)
 
 
@@ -36,7 +25,6 @@ def transactions(request):
 
 
 
-
 def transactions_per_category(request):
     if request.method == "GET":
         user = request.user
@@ -45,11 +33,9 @@ def transactions_per_category(request):
         for transaction in transactions:
             if transaction.category in category_dict:
                 category_dict[str(transaction.category)] += transaction.amount
-                print "aaaaaaaaaaaa"
             else:
                 category_dict[str(transaction.category)] = transaction.amount
-                print "bbbbbbbbbbbbbbb"
-        print category_dict
+        #print category_dict
 
         return render(request, 'expense/transactions_per_category.html', {'category': category_dict, 'transactions': transactions})
 
@@ -62,7 +48,6 @@ def add_category(request):
             cat = Category.objects.filter(name=request.POST['name'])
             if(cat):
                 return HttpResponse("category already exists")
-
         except :
            pass
         form = CategoryForm(request.POST)
@@ -83,7 +68,6 @@ def add_transaction(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
         user = request.user
-
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.user = user
@@ -92,10 +76,8 @@ def add_transaction(request):
             return index(request)
         else:
             return HttpResponse("Please enter all entries")
-
     else:
         form = TransactionForm()
-
     return render(request, 'expense/add_transaction.html', {'form': form})
 
 
@@ -105,13 +87,14 @@ def add_monthly_budget(request):
         try:
             getbudget=Budget.objects.get(user=request.user)
             getbudget.budget_amount=request.POST['budget_amount']
-            getbudget.save()
-            return HttpResponse("Successfully budget updated...")
-            #return HttpResponseRedirect('/expense/')
+            if float(getbudget.budget_amount) > 0:
+                getbudget.save()
+            else:
+                return HttpResponse("Please set your budget amount greater than ZERO!")
+            return HttpResponseRedirect('/expense/')
         except:
             form = MonthlyBudgetForm(request.POST)
             user = request.user
-
             if form.is_valid():
                 budget = form.save(commit=False)
                 budget.user = user
@@ -121,7 +104,6 @@ def add_monthly_budget(request):
                 return HttpResponse("Please enter Monthly Budget!")
     else:
         form = MonthlyBudgetForm()
-
     return render(request, 'expense/add_monthly_budget.html', {'form': form})
 
 
@@ -149,13 +131,13 @@ def add_monthly_budget(request):
 
 def display_monthly_budget(request):
     user = request.user
-    # try:
-    #     budget_amount = Budget.objects.filter(user=user)
-    #     print budget_amount
-    # except Budget.DoesNotExist:
-    #     budget_amount = None
+    try:
+        budget_amount = Budget.objects.get(user=user)
+        #print budget_amount
+    except Budget.DoesNotExist:
+        budget_amount = None
 
-    budget_amount = get_object_or_404(Budget, user=user)
+    #budget_amount = get_object_or_404(Budget, user=user)
 
     remainingamount = remaining_budget_balance(request)
     #remainingamount = get_obj_or_404(remaining_budget_balance, user=user)
