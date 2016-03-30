@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from expense.models import Transaction, Category
 from expense.forms import TransactionForm, CategoryForm, MonthlyBudgetForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from expense.models import Budget
-# from django.db.models import Sum
 #import datetime
 #import time
 from django.shortcuts import get_object_or_404
@@ -34,6 +33,26 @@ def transactions(request):
     transactions_dict = {'transactions': transactions}
 
     return render(request, 'expense/all_transactions.html', transactions_dict)
+
+
+
+
+def transactions_per_category(request):
+    if request.method == "GET":
+        user = request.user
+        transactions = Transaction.objects.filter(user=user)
+        category_dict = {}
+        for transaction in transactions:
+            if transaction.category in category_dict:
+                category_dict[str(transaction.category)] += transaction.amount
+                print "aaaaaaaaaaaa"
+            else:
+                category_dict[str(transaction.category)] = transaction.amount
+                print "bbbbbbbbbbbbbbb"
+        print category_dict
+
+        return render(request, 'expense/transactions_per_category.html', {'category': category_dict, 'transactions': transactions})
+
 
 
 def add_category(request):
@@ -87,7 +106,8 @@ def add_monthly_budget(request):
             getbudget=Budget.objects.get(user=request.user)
             getbudget.budget_amount=request.POST['budget_amount']
             getbudget.save()
-            return HttpResponse("Successfully updated budget")
+            return HttpResponse("Successfully budget updated...")
+            #return HttpResponseRedirect('/expense/')
         except:
             form = MonthlyBudgetForm(request.POST)
             user = request.user
