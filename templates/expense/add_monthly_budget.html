@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+{% extends 'base.html' %}
 
-<body>
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+{% block body_block %}
+
         <h1>Add Monthly Budget</h1>
 
         <form id="monthly_budget_form" method="post" action="/expense/add_monthly_budget/">
@@ -20,5 +20,4 @@
             <input type="submit" name="submit" value="Set Budget">
 
         </form>
-</body>
-</html>
+{% endblock %}

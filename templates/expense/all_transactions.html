@@ -7,8 +7,6 @@
 {% block body_block %}
 
         <h1>Expense Manager</h1>
-{#        {{ transactions }}#}
-{#        {% if transactions %}#}
             <ul>
                 {% for transaction in transactions %}
                 <li>{{ transaction.amount }}</li>
@@ -19,6 +17,4 @@
                     You don't have made any transactions yet.
                 {% endfor %}
             </ul>
-{#        {% endif %}#}
-
 {% endblock %}

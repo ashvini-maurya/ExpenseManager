@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+{% extends 'base.html' %}
 
-<body>
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+{% block body_block %}
     <h1>Your Monthly Budget is:</h1>
-{#    {% for item in budget_amount %}#}
         {{ budget_amount }}
-{#    {% endfor %}#}
     <br />
     <br />
 
@@ -17,5 +14,4 @@
     <h2>And Your previous transaction is:</h2>
         {{ remainingamount }}
 
-</body>
-</html>
+{% endblock %}

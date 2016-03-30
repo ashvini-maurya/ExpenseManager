@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Expense</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+{% block body_block %}
+
         <h1>Add expenses:</h1>
 
         <form id="transaction_form" method="post" action="/expense/add_transaction/">
@@ -20,5 +20,4 @@
         <input type="submit" name="submit" value="Make Transaction" />
         </form>
 
-</body>
-</html>
+{% endblock %}
