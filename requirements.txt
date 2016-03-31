@@ -7,6 +7,7 @@ django-registration-redux==1.4
 gunicorn==19.4.5
 pbr==1.8.1
 Pillow==3.1.1
+psycopg2==2.5.4
 pycparser==2.14
 requests==2.9.1
 six==1.10.0
@@ -15,5 +16,3 @@ virtualenv==14.0.6
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.1
 whitenoise==3.0
-psycopg2==2.5.4
-

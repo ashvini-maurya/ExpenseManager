@@ -2,9 +2,14 @@ from django import forms
 from expense.models import Transaction, Category, Budget
 
 class TransactionForm(forms.ModelForm):
-    amount = forms.IntegerField()
-    comment = forms.CharField()
+    amount = forms.IntegerField(label='amount',
+                                widget=forms.TextInput(attrs={'placeholder': 'Amount'}))
+
+    comment = forms.CharField(label='comment',
+                                widget=forms.TextInput(attrs={'placeholder': 'Comment'}))
+
     category = forms.ModelChoiceField(queryset=Category.objects.all())
+
 
     class Meta:
         model = Transaction

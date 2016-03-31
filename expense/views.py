@@ -18,7 +18,7 @@ def index(request):
 
 def transactions(request):
     user = request.user
-    transactions = Transaction.objects.filter(user=user)
+    transactions = Transaction.objects.filter(user=user).order_by('created_at')[::-1]
     transactions_dict = {'transactions': transactions}
 
     return render(request, 'expense/all_transactions.html', transactions_dict)
