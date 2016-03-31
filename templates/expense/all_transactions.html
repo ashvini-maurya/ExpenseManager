@@ -7,11 +7,11 @@
 {% block body_block %}
 
         <h1>Previous Transactions:</h1>
-            <ul class="nav nav-tabs nav-justified">
-                <tr>
-                    <th><h3 align="left">Amount </h3></th>
+{#            <ul class="nav nav-tabs nav-justified">#}
+{#                <tr>#}
+{#                    <th><h3 align="left">Amount </h3></th>#}
 {#                    <th><h3>Comment <ul class="nav nav-tabs nav-justified"></ul></h3></th>#}
-                </tr>
+{#                </tr>#}
                 {% for transaction in transactions %}
                 <li>{{ transaction.amount }}</li>
                 <li>{{ transaction.comment }}</li>

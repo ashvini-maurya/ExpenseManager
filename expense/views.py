@@ -5,8 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from expense.models import Budget
 #import datetime
 #import time
-from django.shortcuts import get_object_or_404
-from django.http import Http404
 
 
 
@@ -108,41 +106,16 @@ def add_monthly_budget(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# def get_obj_or_404(transaction, *args, **kwargs):
-#     try:
-#         return transaction.objects.get(*args, **kwargs)
-#     except transaction.DoesNotExist:
-#         raise Http404
-
-
-
 def display_monthly_budget(request):
     user = request.user
     try:
         budget_amount = Budget.objects.get(user=user)
-        #print budget_amount
     except Budget.DoesNotExist:
         budget_amount = None
-
-    #budget_amount = get_object_or_404(Budget, user=user)
-
-    remainingamount = remaining_budget_balance(request)
-    #remainingamount = get_obj_or_404(remaining_budget_balance, user=user)
-    #print remainingamount
-
+    if budget_amount:
+        remainingamount = remaining_budget_balance(request)
+    else:
+        return HttpResponse("You have not set your BUDGET yet...")
     return render(request, 'expense/display_monthly_budget.html', {'budget_amount': budget_amount,'remainingamount':remainingamount})
 
 

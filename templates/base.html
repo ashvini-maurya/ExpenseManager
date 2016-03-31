@@ -30,11 +30,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/expense/">Expense Manager</a>
+{#                    <a class="navbar-brand" href="/expense/">Expense Manager</a>#}
+                        <a class="navbar-brand" href="/">Expense Manager</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{% url 'index' %}">Home</a></li>
+{#                            <li><a href="{% url 'index' %}">Home</a></li>#}
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'auth_logout' %}?next=/expense/">Logout</a></li>
                                 {% else %}
