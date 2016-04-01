@@ -9,7 +9,8 @@ from expense.models import Budget
 
 
 def index(request):
-    transaction_list = Transaction.objects.all()
+    user = request.user.id
+    transaction_list = Transaction.objects.filter(user=user).order_by('created_at')[::-1]
     context_dict = {'categories': transaction_list}
     return render(request, 'expense/index.html', context_dict)
 
@@ -18,7 +19,6 @@ def transactions(request):
     user = request.user
     transactions = Transaction.objects.filter(user=user).order_by('created_at')[::-1]
     transactions_dict = {'transactions': transactions}
-
     return render(request, 'expense/all_transactions.html', transactions_dict)
 
 
@@ -122,12 +122,7 @@ def display_monthly_budget(request):
 
 def remaining_budget_balance(request):
     user = request.user
-    #current_date = datetime.datetime.now().date().month, datetime.datetime.now().date().year
-    #print current_date
-
-    #print current_date_month
     of_user = Transaction.objects.filter(user=user)
-
     budget_amount = Budget.objects.get(user=user)
     #expense_budget = Transaction.objects.filter(user=user).aggregate(Sum('amount'))
     #remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
@@ -137,11 +132,16 @@ def remaining_budget_balance(request):
         amount_list.append(amount.amount)
     sum_of_all_transactions = sum(amount_list)
 
+    if float(sum_of_all_transactions) > float(str(budget_amount)):
+        return HttpResponse("You have spend more than your budget amount....",  str(sum_of_all_transactions) +  " / " + str(budget_amount))
+    else:
+        pass
+
     for date_month in of_user:
-        #transaction_date = date_month.created_at.date().month, date_month.created_at.date().year
-        # print transaction_date
-        #if current_date == transaction_date:
-            #print "yyyyyyyyyyyy"
+        transaction_date = date_month.created_at.date().month, date_month.created_at.date().year
+        #print transaction_date
+        # if current_date == transaction_date:
+        #     print "yyyyyyyyyyyy"
 
         return (str(sum_of_all_transactions) +  " / " + str(budget_amount))
 

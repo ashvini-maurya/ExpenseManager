@@ -7,15 +7,13 @@
 {% block body_block %}
 
         <h1>Previous Transactions:</h1>
-{#            <ul class="nav nav-tabs nav-justified">#}
-{#                <tr>#}
-{#                    <th><h3 align="left">Amount </h3></th>#}
-{#                    <th><h3>Comment <ul class="nav nav-tabs nav-justified"></ul></h3></th>#}
-{#                </tr>#}
+            <ul class="nav nav-tabs nav-justified">
+
                 {% for transaction in transactions %}
                 <li>{{ transaction.amount }}</li>
                 <li>{{ transaction.comment }}</li>
                 <li>{{ transaction.category }}</li><br />
+{#                <li>{{ transaction.created_at }}</li>#}
 {#                <li>{{ transaction.user }}</li><br />#}
                     {% empty %}
                     You don't have made any transactions yet.

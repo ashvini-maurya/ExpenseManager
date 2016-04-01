@@ -37,7 +37,12 @@
                         <ul class="nav navbar-nav navbar-right">
 {#                            <li><a href="{% url 'index' %}">Home</a></li>#}
                                 {% if user.is_authenticated %}
+                                    <li><a href="/expense/add_monthly_budget">Set Monthly Budget</a> </li>
+
+                                    <li><a href="/expense/add_category">Add Category</a> </li>
+                                    <li><a href="/expense/add_transaction">Add Transaction</a> </li>
                                     <li><a href="{% url 'auth_logout' %}?next=/expense/">Logout</a></li>
+
                                 {% else %}
                                     <li><a href="{% url 'auth_login' %}">Login</a></li>
                                     <li><a href="{% url 'registration_register' %}">Register</a></li>
@@ -55,11 +60,11 @@
 
                         {% if user.is_authenticated %}
 
-                        <a href="/expense/all_transactions">View Previous Transactions</a><br /><br/>
+{#                        <a href="/expense/all_transactions">View Previous Transactions</a><br /><br/>#}
                         <a href="/expense/transactions_per_category">Filter transactions per Category</a><br /><br />
-                        <a href="/expense/add_category">Add a new category</a><br /><br/>
-                        <a href="/expense/add_monthly_budget">Set Monthly Budget</a><br /><br/>
-                        <a href="/expense/add_transaction">Add a new transaction</a><br /><br/>
+{#                        <a href="/expense/add_category">Add a new category</a><br /><br/>#}
+{#                        <a href="/expense/add_monthly_budget">Set Monthly Budget</a><br /><br/>#}
+{#                        <a href="/expense/add_transaction">Add a new transaction</a><br /><br/>#}
                         <a href="/expense/display_monthly_budget">View Your Monthly Budget</a><br/><br/>
 
                         {% endif %}

@@ -8,12 +8,53 @@
 
 {% if user.is_authenticated %}
     <div class="page-header">
+        <h1>Hello {{ user.username }}!</h1>
+        <div style="text-align:center">
+{#        <a href="/expense/all_transactions">View Previous Transactions</a><br /><br/>#}
 
-                <h1>Hello {{ user.username }}!</h1>
-            {% else %}
-                <h1>Hello...</h1>
-            {% endif %}
+{#        ###############################################################################################}
+
+
+
+
+        <h1>Previous Transactions:</h1>
+            <ul class="nav nav-tabs nav-justified">
+
+                {% for transaction in categories %}
+                <li>{{ transaction.amount }}</li>
+                <li>{{ transaction.comment }}</li>
+                <li>{{ transaction.category }}</li><br />
+{#                <li>{{ transaction.created_at }}</li>#}
+{#                <li>{{ transaction.user }}</li><br />#}
+                    {% empty %}
+                    You don't have made any transactions yet.
+                {% endfor %}
+            </ul>
+
+
+
+
+
+{#        ################################################################################################}
+
+        </div>​
+{% else %}
+    <h1>Hello...</h1>
+{% endif %}
+
     </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
 {##}
 {#    {% if user.is_authenticated %}#}
 {##}
@@ -26,4 +67,3 @@
 {##}
 {#    {% endif %}#}
 
-{% endblock %}
