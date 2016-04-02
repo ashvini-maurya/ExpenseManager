@@ -29,6 +29,7 @@ def transactions_per_category(request):
         transactions = Transaction.objects.filter(user=user)
         category_dict = {}
         for transaction in transactions:
+            #print transaction
             if transaction.category in category_dict:
                 category_dict[str(transaction.category)] += transaction.amount
             else:

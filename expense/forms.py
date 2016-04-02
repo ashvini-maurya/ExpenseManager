@@ -16,14 +16,14 @@ class TransactionForm(forms.ModelForm):
         exclude = ('user',)
 
 class CategoryForm(forms.ModelForm):
-    name = forms.CharField()
+    name = forms.CharField(required=True)
 
     class Meta:
         model = Category
         fields = ('name', )
 
 class MonthlyBudgetForm(forms.ModelForm):
-    budget_amount = forms.FloatField()
+    budget_amount = forms.FloatField(required=True)
 
     class Meta:
         model = Budget

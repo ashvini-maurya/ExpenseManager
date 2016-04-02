@@ -7,10 +7,19 @@
 {% block body_block %}
     <h1>Transactions per Category:</h1>
 
+
+    <table style="width: 40%">
+        <tr>
+            <th>Category</th>
+            <th>Total Amount</th>
+        </tr>
+
         {% for category_name,amount in category.items %}
-                {{ category_name }} &nbsp &nbsp &nbsp---->    {{ amount }}
+            <tr>
+                <th>{{ category_name }} </th>
+                <th>{{ amount }}</th>
+            </tr>
 
-            <br /><br />
         {% endfor %}
-
+    </table>
 {% endblock %}

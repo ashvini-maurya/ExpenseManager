@@ -18,18 +18,31 @@
 
 
         <h1>Previous Transactions:</h1>
-            <ul class="nav nav-tabs nav-justified">
+{#            <ul class="nav nav-tabs nav-justified">#}
+
+            <table style="width:100%">
+                <tr>
+                    <p><th>Amount</th>
+                    <th>Comment</th>
+                    <th>Category</th>
+                    <th>Transaction Time</th></p>
+                </tr>
 
                 {% for transaction in categories %}
-                <li>{{ transaction.amount }}</li>
-                <li>{{ transaction.comment }}</li>
-                <li>{{ transaction.category }}</li><br />
+                    <tr>
+                        <th>{{ transaction.amount }}</th>
+                        <th>{{ transaction.comment }}</th>
+                        <th>{{ transaction.category }}</th>
+                        <th>{{ transaction.created_at }}</th>
+                    </tr>
 {#                <li>{{ transaction.created_at }}</li>#}
 {#                <li>{{ transaction.user }}</li><br />#}
-                    {% empty %}
+                {% empty %}
                     You don't have made any transactions yet.
                 {% endfor %}
-            </ul>
+
+             </table>
+{#            </ul>#}
 
 
 
