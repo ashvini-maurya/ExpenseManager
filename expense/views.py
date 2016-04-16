@@ -3,16 +3,26 @@ from expense.models import Transaction, Category
 from expense.forms import TransactionForm, CategoryForm, MonthlyBudgetForm
 from django.http import HttpResponse, HttpResponseRedirect
 from expense.models import Budget
-#import datetime
-#import time
-
-
+from datetime import date
+import datetime
 
 def index(request):
     user = request.user.id
-    transaction_list = Transaction.objects.filter(user=user).order_by('created_at')[::-1]
-    context_dict = {'categories': transaction_list}
-    return render(request, 'expense/index.html', context_dict)
+    today = date.today()
+    transaction_list = Transaction.objects.filter(user=user, created_at__month=today.month).order_by('-created_at')
+
+    transactions = Transaction.objects.filter(user=user)
+    category_dict = {}
+    for transaction in transactions:
+        if str(transaction.category) in category_dict:
+            category_dict[str(transaction.category)] += transaction.amount
+        else:
+            category_dict[str(transaction.category)] = transaction.amount
+
+    top_five_cat = sorted(category_dict.items(), key=lambda x: x[1], reverse=True)[:5]
+    return render(request, 'expense/index.html', {'categories': transaction_list, 'top_five_cat': top_five_cat})
+
+
 
 
 def transactions(request):
@@ -23,20 +33,20 @@ def transactions(request):
 
 
 
+
 def transactions_per_category(request):
     if request.method == "GET":
         user = request.user
         transactions = Transaction.objects.filter(user=user)
         category_dict = {}
         for transaction in transactions:
-            #print transaction
-            if transaction.category in category_dict:
+            if str(transaction.category) in category_dict:
                 category_dict[str(transaction.category)] += transaction.amount
             else:
                 category_dict[str(transaction.category)] = transaction.amount
-        #print category_dict
 
         return render(request, 'expense/transactions_per_category.html', {'category': category_dict, 'transactions': transactions})
+
 
 
 
@@ -63,6 +73,7 @@ def add_category(request):
 
 
 
+
 def add_transaction(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
@@ -78,6 +89,8 @@ def add_transaction(request):
     else:
         form = TransactionForm()
     return render(request, 'expense/add_transaction.html', {'form': form})
+
+
 
 
 def add_monthly_budget(request):
@@ -107,6 +120,7 @@ def add_monthly_budget(request):
 
 
 
+
 def display_monthly_budget(request):
     user = request.user
     try:
@@ -121,9 +135,11 @@ def display_monthly_budget(request):
 
 
 
+
 def remaining_budget_balance(request):
     user = request.user
-    of_user = Transaction.objects.filter(user=user)
+    today = date.today()
+    of_user = Transaction.objects.filter(user=user, created_at__month=today.month)
     budget_amount = Budget.objects.get(user=user)
     #expense_budget = Transaction.objects.filter(user=user).aggregate(Sum('amount'))
     #remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
@@ -151,42 +167,38 @@ def remaining_budget_balance(request):
 
 
 
+def month_year_transactions(request):
+    user = request.user
+    form = TransactionForm(request.GET)
+    if request.method == 'GET':
+        try:
+            requested_month_year = Transaction.objects.filter(user=request.user)
+            # print requested_month_year
+            # month_and_years = {}
+            # for month_year in requested_month_year:
+            #print requested_month_year
+            print "aaaaaa"
+            requested_month_year.created_at = request.GET['arrVal']                #datetime.datetime.now().strftime("%Y-%m")
+            print "bbbbbbbbbbb"
+            print requested_month_year
+
+        except:
+            print "xxxxxxx"
+            pass
+
+        for transaction_month_year in requested_month_year:
+            transaction = Transaction.objects.filter(user=user).order_by('-created_at')
+            return render(request, 'expense/month_year_transactions.html', {'transaction': transaction})
+
+            print transaction_month_year.created_at.strftime("%Y-%m"), transaction_month_year.amount
 
 
+        for transaction_month_year in transactions:
+            if present_month_year == transaction_month_year.created_at.strftime("%Y-%m"):
+                #print "YES"
+                return render(request, 'expense/month_year_transactions.html', {})
 
+    else:
+        form = TransactionForm()
 
-
-
-
-
-
-
-
-    # try:
-    #     budget_amount = Budget.objects.get(user=user)
-    #     #print(budget_amount)
-    #     #expense_budget=Transaction.objects.filter(user=user).aggregate(Sum('amount'))
-    #
-    #
-    #
-    #     # print transaction
-    #
-    #     #print(expense_budget)
-    #
-    #     expense_budget = Transaction.objects.filter(user=user).aggregate(Sum('amount'))
-    #
-    #     remaining_amount = budget_amount.budget_amount - int(expense_budget['amount__sum'])
-    #
-    #
-    #
-    #
-    #     # if remaining_amount > budget_amount:
-    #     #     print "Your expenses are more than your budget amount."
-    #
-    #
-    #
-    #     #print remaining_amount
-    #
-    #     return remaining_amount
-    # except Exception as d:
-    #     print(d)
+    return render(request, 'expense/month_year_transactions.html', {'form': form})

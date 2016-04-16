@@ -9,8 +9,12 @@
 {% if user.is_authenticated %}
     <div class="page-header">
         <h1>Hello {{ user.username }}!</h1>
-        <div style="text-align:center">
+
+{#            <p align="right"><a href="/expense/transactions_per_category">View Transactions per Category</a><br /><br /></p>#}
+{#        <div style="text-align:center">#}
 {#        <a href="/expense/all_transactions">View Previous Transactions</a><br /><br/>#}
+
+
 
 {#        ###############################################################################################}
 
@@ -41,7 +45,19 @@
                     You don't have made any transactions yet.
                 {% endfor %}
 
+
              </table>
+
+
+
+
+                <h1>And your top five category in which you have expend more money...</h1>
+                {% for top_cat in top_five_cat %}
+                    <tr>
+                        <th>{{ top_cat }}</th><br />
+                    </tr>
+                {% endfor %}
+
 {#            </ul>#}
 
 
@@ -50,14 +66,38 @@
 
 {#        ################################################################################################}
 
+
+
         </div>​
 {% else %}
+
+
+
+{#     <li>#}
+{#       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>#}
+{#     </li>#}
+{#     <li>#}
+{#       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>#}
+{#     </li>#}
+{#     <li>#}
+{#       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>#}
+{#     </li>#}
+
+
+
+
     <h1>Hello...</h1>
 {% endif %}
 
     </div>
 
 {% endblock %}
+
+
+
+
+
+
 
 
 

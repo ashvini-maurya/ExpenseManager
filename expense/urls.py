@@ -10,3 +10,4 @@ urlpatterns = patterns('',
         url(r'^display_monthly_budget/$', views.display_monthly_budget, name='display_monthly_budget'),
         url(r'^remaining_budget_balance/$', views.remaining_budget_balance, name='remaining_budget_balance'),
         url(r'^transactions_per_category/$', views.transactions_per_category, name='transactions_per_category'),)
+        # url(r'^month_year_transactions/$', views.month_year_transactions, name='month_year_transactions'),)

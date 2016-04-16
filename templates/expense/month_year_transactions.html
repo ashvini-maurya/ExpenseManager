@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}expense{% endblock %}
+
+
+{% block body_block %}
+
+
+
+     <div style="text-align:center">
+
+     <h1>This month transactions were:</h1>
+
+     <table style="width:100%">
+                <tr>
+                    <p><th>Amount</th>
+                    <th>Comment</th>
+                    <th>Category</th>
+                    <th>Transaction Time</th></p>
+                </tr>
+
+                {% for transac in transaction %}
+                    <tr>
+                            <th>{{ transac.amount }}</th>
+                            <th>{{ transac.comment }}</th>
+                            <th>{{ transac.category }}</th>
+                            <th>{{ transac.created_at }}</th><br />
+                    </tr>
+                {% endfor %}
+
+
+     </table>
+
+     </div>
+
+
+{% endblock %}
